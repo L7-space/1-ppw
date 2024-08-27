@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de Idade</title>
+</head>
+<body>
+    <h1 align="center">Verifique sua Idade</h1>
+
+    <h2>Programa para verificar se você é maior ou menor de idade</h2>
+
+    <!--Formulário-->
+    <form id="idadeFormulario">
+        <label for="anoNascimentoInput">Digite seu ano de nascimento: </label>
+        <input type="number" id="anoNascimentoInput" name="anoNascimentoInput" required>
+
+        <button type="button" id="verificaButton">Verificar</button>
+    </form>
+
+    <p id="resultado"></p>
+    
+    <script src="script.js"></script>
+</body>
+</html>
