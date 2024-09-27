@@ -162,3 +162,165 @@ livre?</h2>
 <script src="script.js"></script>
 </body>
 </html>
+HTML
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1c1c1c;
+    color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 50px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #ffd700;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.question {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.option {
+    display: block;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.result {
+    display: none;
+    padding: 20px;
+    border: 2px solid #ffd700;
+    margin-top: 30px;
+}
+
+img {
+    max-width: 200px;
+    margin: 20px 0;
+    border-radius: 10px;
+    border: 2px solid #ffd700;
+} 
+Css 
+
+const characters = {
+    'Thalios': {
+        name: 'Thalios, o Tecelão de Flechas',
+        description: 'Você é Thalios, o arqueiro mestre das florestas de Zarvath. Silencioso e letal, você se move como o vento.',
+        image: 'https://pm1.aminoapps.com/6389/17729b457512aa65fc79f50000d1e0e4d23f35a0_00.jpg',
+        points: 38
+    },
+    'Zelara': {
+        name: 'Zelara, a Feiticeira do Crepúsculo',
+        description: 'Você é Zelara, uma feiticeira poderosa que controla a magia entre a luz e a escuridão. Sua sabedoria é sua maior força.',
+        image: 'https://cdn.pastemagazine.com/www/articles/Mage.jpg',
+        points: 40
+    },
+    'Kragor': {
+        name: 'Kragor, o Colosso de Ferro',
+        description: 'Você é Kragor, o imponente guerreiro de Zarvath. Sua força física e coragem te tornam invencível em batalhas.',
+        image: 'https://dcdn.mitiendanube.com/stores/004/546/716/products/hadrian-the-iron-colossal-022473a196ef329a2e17211592201767-1024-1024.jpg',
+        points: 39
+    }
+};
+
+function calculateResult() {
+    let answers = document.querySelectorAll('input[type="radio"]:checked');
+    
+    // Verificar se todas as perguntas foram respondidas
+    if (answers.length < 10) {
+        alert("Por favor, responda todas as perguntas.");
+        return;
+    }
+
+    // Laço de repetição para processar todas as respostas
+    for (let i = 0; i < answers.length; i++) {
+        // Cada resposta é um JSON string com a pontuação para cada personagem
+        let points = JSON.parse(answers[i].value);
+        
+        // Laço for-in para adicionar os pontos para cada personagem
+        for (let character in points) {
+            if (characters.hasOwnProperty(character)) {
+                characters[character].points += points[character];
+            }
+        }
+    }
+
+    // Determinar qual personagem tem a maior pontuação
+    let maxCharacter = '';
+    let maxPoints = 0;
+
+    // Laço for-in para encontrar o personagem com mais pontos
+    for (let character in characters) {
+        if (characters[character].points > maxPoints) {
+            maxPoints = characters[character].points;
+            maxCharacter = character;
+        }
+    }
+
+    // Exibe o resultado
+    document.getElementById('character-name').textContent = characters[maxCharacter].name;
+    document.getElementById('character-image').src = characters[maxCharacter].image;
+    document.getElementById('character-description').textContent = characters[maxCharacter].description;
+    document.getElementById('result').style.display = 'block';
+}
+
+function resetQuiz() {
+    // Resetando as pontuações para cada personagem usando um laço for-in
+    for (let character in characters) {
+        characters[character].points = 0;
+    }
+    
+    // Redefinir a exibição do quiz
+    document.getElementById('quiz').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
+    document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+}
+
+// switch-case para descrever a personalidade
+function describePersonality(character) {
+    switch (character) {
+        case 'Thalios':
+            return 'Thalios é ágil, silencioso e adora explorar as florestas.';
+        case 'Zelara':
+            return 'Zelara é sábia, misteriosa, com grande domínio sobre a magia.';
+        case 'Kragor':
+            return 'Kragor é forte, destemido, e um líder nato em batalhas.';
+        default:
+            return 'Personagem desconhecido';
+    }
+}
+
+// if-else para atribuir pontos
+function assignPoints(character, points) {
+    if (character === 'Thalios') {
+        characters.Thalios.points += points;
+    } else if (character === 'Zelara') {
+        characters.Zelara.points += points;
+    } else if (character === 'Kragor') {
+        characters.Kragor.points += points;
+    }
+}
+javascript
